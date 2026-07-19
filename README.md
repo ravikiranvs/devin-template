@@ -14,6 +14,7 @@ A Dev Container with **Devin CLI**, **Claude Code**, Node 22, Python 3, and `gh`
 npm install -g @devcontainers/cli
 ```
 ```bash
+$env:NODE_OPTIONS = "--use-system-ca"
 devcontainer templates apply --template-id ghcr.io/ravikiranvs/devin-template/devin-workspace:latest --workspace-folder .
 ```
 
