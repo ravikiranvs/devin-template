@@ -1,17 +1,13 @@
 # Base image – Microsoft's base devcontainer image (git, curl, zsh, vscode user).
 FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
 
-# ── System packages ───────────────────────────────────────────────────────────
+# ── System packages and Python ───────────────────────────────────────────────────────────
 RUN apt-get update && apt-get install -y --no-install-recommends \
       ripgrep \
       jq \
       tree \
       ca-certificates \
       gnupg \
-    && rm -rf /var/lib/apt/lists/*
-
-# ── Python ───────────────────────────────────────────────────────────
-RUN apt-get install -y --no-install-recommends \
       python3 \
       python3-pip \
       python3-venv \
