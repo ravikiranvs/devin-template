@@ -12,10 +12,9 @@ A Dev Container with **Devin CLI**, **Claude Code**, Node 22, Python 3, and `gh`
 
 ```bash
 npm install -g @devcontainers/cli
-
-devcontainer templates apply \
-  --template-id ghcr.io/ravikiranvs/devin-template/devin-workspace:latest \
-  --workspace-folder .
+```
+```bash
+devcontainer templates apply --template-id ghcr.io/ravikiranvs/devin-template/devin-workspace:latest --workspace-folder .
 ```
 
 Then open the folder in VS Code and reopen in the container.
