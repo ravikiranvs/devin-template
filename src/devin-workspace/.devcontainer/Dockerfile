@@ -46,4 +46,13 @@ RUN curl -fsSL https://cli.devin.ai/install.sh -o /tmp/devin-install.sh \
 
 USER root
 
+# Node ships its own compiled-in CA list and ignores /etc/ssl/certs, so this is
+# required in addition to whatever install-corp-ca.sh puts in the trust store.
+ENV NODE_EXTRA_CA_CERTS=/etc/ssl/certs/ca-certificates.crt \
+    GIT_SSL_CAINFO=/etc/ssl/certs/ca-certificates.crt \
+    REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \
+    SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt
+
+ENV PATH=/home/vscode/.local/bin:${PATH}
+
 WORKDIR /workspaces
