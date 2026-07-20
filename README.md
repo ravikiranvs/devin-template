@@ -1,32 +1,57 @@
-# devin-template
+# Devin Template
 
-A Dev Container with **Devin CLI**, **Claude Code**, Node 22, Python 3, and `gh` — plus automatic handling of corporate TLS-interception proxies.
+A Podman-based Dev Container with **Devin CLI**, Node 22, Python 3, and `gh` — plus GPU passthrough and automatic handling of corporate TLS-interception proxies.
 
 <https://github.com/ravikiranvs/devin-template>
 
+> **Podman only.** The container config uses Podman-specific `runArgs` (`--userns=keep-id`, CDI GPU devices) that Docker will reject.
+
+## Prerequisites
+
+- [Podman](https://podman-desktop.io/) with a running machine
+- [GPU container access](https://podman-desktop.io/docs/podman/gpu) — follow this to set up the CDI spec
+- [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- Node.js (for the `devcontainer` CLI)
+
+Add to VS Code User Settings `settings.json`:
+
+```jsonc
+"dev.containers.dockerPath": "podman",
+"dev.containers.dockerComposePath": "podman-compose",
+"dev.containers.mountWaylandSocket": false
+```
+
 ## Use it
 
-**New project:** click **Use this template** on GitHub, open in VS Code, and accept *Reopen in Container*.
+Works the same for a new or existing repo.
 
-**Existing repo:**
+**1. Install the devcontainers CLI**
 
-```bash
+```powershell
 npm install -g @devcontainers/cli
 ```
-```bash
+
+**2. Apply the template**
+
+```powershell
+# --use-system-ca lets Node trust a corporate proxy root already in the Windows store. Without it the pull fails with SELF_SIGNED_CERT_IN_CHAIN.
 $env:NODE_OPTIONS = "--use-system-ca"
 devcontainer templates apply --template-id ghcr.io/ravikiranvs/devin-template/devin-workspace:latest --workspace-folder .
 ```
 
-Then open the folder in VS Code and reopen in the container.
+`apply` is a one-time copy and won't overwrite an existing `.devcontainer/`. To pick up template updates, delete the folder and re-apply.
+
+**3. Open it in the container**
+
+1. Open the folder in VS Code (`code .`)
+2. `F1` → **Dev Containers: Reopen in Container**
+3. Wait for the build and `postCreate` to finish — watch the log via **Dev Containers: Show Container Log**
 
 ## First run
 
 ```bash
 devin setup     # authenticate the Devin CLI
 ```
-
-Then in a Devin session, once per repo: `/setup-matt-pocock-skills`
 
 ## What happens on container create
 
@@ -43,20 +68,4 @@ Then in a Devin session, once per repo: `/setup-matt-pocock-skills`
 | Node version | NodeSource `setup_22.x` line |
 | Extra setup | bottom of `scripts/postCreateCommand.sh` |
 | Skill selection | `--skill` flags in the same script |
-| Probe a different host | `"containerEnv": { "CORP_PROBE_HOST": "host:443" }` |
-
-## Troubleshooting
-
-| Symptom | Fix |
-|---|---|
-| `postCreateCommand failed with exit code 127` | Wrong script path, or CRLF endings — keep `.gitattributes` |
-| `SSL certificate problem: self-signed certificate` | Run `sudo sh .devcontainer/scripts/install-corp-ca.sh` to see why |
-| `npm` fails TLS but `git` works | `NODE_EXTRA_CA_CERTS` must be set — check the `ENV` block |
-| `COPY failed: file not found` | `"context": ".."` is required under `build` |
-| Create hangs with no output | An interactive prompt with no TTY — add `--yes` |
-
-Check the CA state inside the container:
-
-```bash
-openssl s_client -connect github.com:443 </dev/null 2>/dev/null | grep 'Verify return code'
-```
+| Disable GPU | drop `"--device", "nvidia.com/gpu=all"` from `runArgs` |
