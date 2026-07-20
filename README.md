@@ -1,17 +1,17 @@
 # Devin Template
 
-A Podman-based Dev Container with **Devin CLI**, Node 22, Python 3, and `gh` — plus GPU passthrough and automatic handling of corporate TLS-interception proxies.
+A Podman-based Dev Container with **Devin CLI**, Node 22, Python 3, and gh — plus GPU passthrough and automatic handling of corporate TLS-interception proxies.
 
 <https://github.com/ravikiranvs/devin-template>
 
-> **Podman only.** The container config uses Podman-specific `runArgs` (`--userns=keep-id`, CDI GPU devices) that Docker will reject.
+> **Podman only.** The container config uses Podman-specific args that Docker will reject.
 
 ## Prerequisites
 
 - [Podman](https://podman-desktop.io/) with a running machine
-- [GPU container access](https://podman-desktop.io/docs/podman/gpu) — follow this to set up the CDI spec
+- [GPU container access](https://podman-desktop.io/docs/podman/gpu) — follow this set up guide
 - [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-- Node.js (for the `devcontainer` CLI)
+- [Node.js](https://nodejs.org/en/download) (for the `devcontainer` CLI)
 
 Add to VS Code User Settings `settings.json`:
 
@@ -21,9 +21,7 @@ Add to VS Code User Settings `settings.json`:
 "dev.containers.mountWaylandSocket": false
 ```
 
-## Use it
-
-Works the same for a new or existing repo.
+## Usage
 
 **1. Install the devcontainers CLI**
 
@@ -34,12 +32,12 @@ npm install -g @devcontainers/cli
 **2. Apply the template**
 
 ```powershell
-# --use-system-ca lets Node trust a corporate proxy root already in the Windows store. Without it the pull fails with SELF_SIGNED_CERT_IN_CHAIN.
+# --use-system-ca lets Node trust a corporate proxy root already in the Windows store.
 $env:NODE_OPTIONS = "--use-system-ca"
 devcontainer templates apply --template-id ghcr.io/ravikiranvs/devin-template/devin-workspace:latest --workspace-folder .
 ```
 
-`apply` is a one-time copy and won't overwrite an existing `.devcontainer/`. To pick up template updates, delete the folder and re-apply.
+> `apply` is a one-time copy and won't overwrite an existing `.devcontainer/`. To pick up template updates, delete the folder and re-apply.
 
 **3. Open it in the container**
 
