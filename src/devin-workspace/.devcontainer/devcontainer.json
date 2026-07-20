@@ -16,9 +16,6 @@
     "NVIDIA_VISIBLE_DEVICES": "all",
     "NVIDIA_DRIVER_CAPABILITIES": "compute,utility"
   },
-  "hostRequirements": {
-    "gpu": "optional"
-  },
   "customizations": {
     "vscode": {
       "extensions": [
