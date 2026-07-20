@@ -8,10 +8,10 @@ A Podman-based Dev Container with **Devin CLI**, Node 22, Python 3, and gh — p
 
 ## Prerequisites
 
-- [Podman](https://podman-desktop.io/) with a running machine
+- Podman with a running machine
 - [GPU container access](https://podman-desktop.io/docs/podman/gpu) — follow this set up guide
-- [VS Code](https://code.visualstudio.com/) with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
-- [Node.js](https://nodejs.org/en/download) (for the `devcontainer` CLI)
+- VS Code with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- Node.js (for the `devcontainer` CLI)
 
 Add to VS Code User Settings `settings.json`:
 
