@@ -12,7 +12,12 @@
   ],
   "postCreateCommand": "bash ${containerWorkspaceFolder}/.devcontainer/scripts/postCreateCommand.sh",
   "containerEnv": {
-    "DISABLE_AUTOUPDATER": "1"
+    "DISABLE_AUTOUPDATER": "1",
+    "NVIDIA_VISIBLE_DEVICES": "all",
+    "NVIDIA_DRIVER_CAPABILITIES": "compute,utility"
+  },
+  "hostRequirements": {
+    "gpu": "optional"
   },
   "customizations": {
     "vscode": {
@@ -25,5 +30,8 @@
       }
     }
   },
-  "remoteUser": "vscode"
+  "remoteUser": "vscode",
+  "runArgs": ["--userns=keep-id:uid=1000,gid=1000", "--device", "nvidia.com/gpu=all"],
+  "containerUser": "vscode",
+  "updateRemoteUserUID": false
 }
