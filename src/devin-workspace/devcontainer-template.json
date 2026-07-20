@@ -1,6 +1,6 @@
 {
   "id": "devin-workspace",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "name": "Devin CLI + Claude Code workspace",
   "description": "Devin CLI, Claude Code, Node 22, Python 3, and gh, with automatic corporate TLS-interception CA handling.",
   "documentationURL": "https://github.com/ravikiranvs/devin-template",

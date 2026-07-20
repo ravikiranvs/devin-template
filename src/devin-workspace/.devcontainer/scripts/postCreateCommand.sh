@@ -41,6 +41,7 @@ npx --yes skills add https://github.com/mattpocock/skills \
   --skill to-spec \
   --skill to-tickets \
   --skill tdd \
+  --skill code-review \
   --skill implement \
   --skill triage \
   --yes
